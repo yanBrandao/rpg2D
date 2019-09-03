@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,6 +10,10 @@ public class Projectile : MonoBehaviour
     void Start()
     {
         _rg2D = GetComponent<Rigidbody2D>();
-        //_rg2D.AddForce(Vector2.right * 100);
+    }
+
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        Destroy(gameObject);
     }
 }

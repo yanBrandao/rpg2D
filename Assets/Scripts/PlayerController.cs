@@ -48,43 +48,42 @@ public class PlayerController  : PhysicsObject {
         if (_spriteRenderer.flipX)
         {
             cloneVelocity = Vector2.left * projectileSpeed;
-            position.x -= 2;
+            position.x -= 3;
         }
         else
         {
             cloneVelocity = Vector2.right * projectileSpeed;
-            position.x += 2;
+            position.x += 3;
         }
 
-            if (Input.GetKeyDown(KeyCode.X))
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            if (player.currentClass.type == Class.ClassType.Mage)
             {
-                if (player.currentClass.type == Class.ClassType.Mage)
-                {
-                    var clone = Instantiate(IceShotProjectile, position, Quaternion.Euler(new Vector3(0, 0, 90)));
-                    clone.AddForce(cloneVelocity);
-                }
-                else
-                {
-                    var clone = Instantiate(NatureProjectile, position, Quaternion.Euler(new Vector3(0, 0, 90)));
-                    clone.AddForce(cloneVelocity);
-                }
-
+                var clone = Instantiate(IceShotProjectile, position, Quaternion.Euler(new Vector3(0, 0, 90)));
+                clone.AddForce(cloneVelocity);
+            }
+            else
+            {
+                var clone = Instantiate(NatureProjectile, position, Quaternion.Euler(new Vector3(0, 0, 90)));
+                clone.AddForce(cloneVelocity);
             }
 
-            if (Input.GetKeyDown(KeyCode.C))
+        }
+
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            if (player.currentClass.type == Class.ClassType.Mage)
             {
-                if (player.currentClass.type == Class.ClassType.Mage)
-                {
-                    var clone = Instantiate(FireballProjectile, position, Quaternion.Euler(new Vector3(0, 0, 90)));
-                    clone.AddForce(cloneVelocity);
-                }
-                else
-                {
-                    var clone = Instantiate(NatureProjectile, position, Quaternion.Euler(new Vector3(0, 0, 90)));
-                    clone.AddForce(cloneVelocity);
-                }
+                var clone = Instantiate(FireballProjectile, position, Quaternion.Euler(new Vector3(0, 0, 90)));
+                clone.AddForce(cloneVelocity);
             }
-        
+            else
+            {
+                var clone = Instantiate(NatureProjectile, position, Quaternion.Euler(new Vector3(0, 0, 90)));
+                clone.AddForce(cloneVelocity);
+            }
+        }
 
         PhysicUpdate();
     }
