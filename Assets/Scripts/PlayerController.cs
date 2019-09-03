@@ -28,7 +28,9 @@ public class PlayerController  : PhysicsObject {
 
         _spriteRenderer = GetComponent<SpriteRenderer> (); 
         _animator = GetComponent<Animator> ();
-        player = new Player(300, new Class(Class.ClassType.Mage));
+        GameObject gameManager = GameObject.Find("GameManager");
+        LoadScene loadComponent = gameManager.GetComponent<LoadScene>();
+        player = new Player(300, new Class(loadComponent.getClassType()));
         if (player.currentClass.type == Class.ClassType.Mage)
         {
             _animator.SetInteger("setItem", 1);
