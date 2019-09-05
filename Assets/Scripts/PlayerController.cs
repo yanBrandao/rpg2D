@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Model;
 using UnityEngine;
 using UnityEngine.Experimental.PlayerLoop;
+using UnityEngine.Serialization;
 
 public class PlayerController  : PhysicsObject {
 
@@ -16,10 +17,8 @@ public class PlayerController  : PhysicsObject {
     private SpriteRenderer _spriteRenderer;
 
     private Animator _animator;
-
-    public Rigidbody2D NatureProjectile;
-    public Rigidbody2D IceShotProjectile;
-    public Rigidbody2D FireballProjectile;
+    public Rigidbody2D projectile;
+    
     public int projectileSpeed = 900;
 
     // Use this for initialization
@@ -55,33 +54,40 @@ public class PlayerController  : PhysicsObject {
             cloneVelocity = Vector2.right * projectileSpeed;
             position.x += 3;
         }
-
+        
         if (Input.GetKeyDown(KeyCode.X))
         {
+            _animator.SetTrigger("Attack");
+            var clone = Instantiate(projectile, position, Quaternion.Euler(new Vector3(0, 0, 90)));
+            clone.AddForce(cloneVelocity);
+            Projectile projectileClass = clone.GetComponent<Projectile>();
+
+            
             if (player.currentClass.type == Class.ClassType.Mage)
             {
-                var clone = Instantiate(IceShotProjectile, position, Quaternion.Euler(new Vector3(0, 0, 90)));
-                clone.AddForce(cloneVelocity);
+                projectileClass.SetMaterial("Ice");
             }
             else
             {
-                var clone = Instantiate(NatureProjectile, position, Quaternion.Euler(new Vector3(0, 0, 90)));
-                clone.AddForce(cloneVelocity);
+                projectileClass.SetMaterial("Nature");
             }
 
         }
 
         if (Input.GetKeyDown(KeyCode.C))
         {
+            _animator.SetTrigger("Attack");
+            var clone = Instantiate(projectile, position, Quaternion.Euler(new Vector3(0, 0, 90)));
+            clone.AddForce(cloneVelocity);
+            Projectile projectileClass = clone.GetComponent<Projectile>();
+
             if (player.currentClass.type == Class.ClassType.Mage)
             {
-                var clone = Instantiate(FireballProjectile, position, Quaternion.Euler(new Vector3(0, 0, 90)));
-                clone.AddForce(cloneVelocity);
+                projectileClass.SetMaterial("Fire");
             }
             else
             {
-                var clone = Instantiate(NatureProjectile, position, Quaternion.Euler(new Vector3(0, 0, 90)));
-                clone.AddForce(cloneVelocity);
+                projectileClass.SetMaterial("Nature");
             }
         }
 
